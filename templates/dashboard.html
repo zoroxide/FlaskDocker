@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h1>Welcome to the Dashboard, {{ current_user.username }}!  <a href="{{ url_for('logout') }}">logout</a></h1>
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Create New Post</h5>
+                    <form method="POST" action="{{ url_for('dashboard') }}">
+                        <div class="mb-3">
+                            <textarea class="form-control" id="content" name="content" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Create Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        {% for post in posts %}
+        <div class="col-md-12">
+            <div class="card mb-4" style="height: auto; overflow: hidden;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.user.username }}</h5>
+                    <p class="card-text"><small class="text-muted">{{ post.timestamp}}</small></p>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
